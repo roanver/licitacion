@@ -50,7 +50,16 @@ Route::middleware('auth')->group(function(){
     Route::get('licitaciones', [LicitacionesController::class, 'index'])->name('licitaciones'); 
 
     Route::post('/cargar', [LicitacionesController::class,'import'])->name('import'); 
-    Route::get('/export', [LicitacionesController::class, 'export'])->name('export');
+    Route::get('/cargar', function(){
+        return view('cargar');
+
+    })->name('importV');
+
+    Route::post('/actualizar', [LicitacionesController::class, 'update'])->name('update'); 
+
+    Route::get('participando', [LicitacionesController::class, 'participando'])->name('participando');
+    Route::get('finalizadas', [LicitacionesController::class, 'finalizadas'])->name('finalizadas');
+    Route::get('descartadas', [LicitacionesController::class, 'descartadas'])->name('descartadas');
 
 
 }); 

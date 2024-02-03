@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('licitaciones', function (Blueprint $table) {
             $table->id();
+            $table->string('numero_cotizacion');
+            $table->longText('nombre_cotizacion');
+            $table->string('sku_producto');
+            $table->string('nombre_producto'); 
+            $table->string('organismo_publico');
+            $table->string('proveedor_adjudicado')->nullable();
+            $table->string('fecha_adjudicacion')->nullable();
+            $table->string('status')->nullable();
+            $table->string('orden_compra')->nullable();
+            $table->string('estado_aphix')->nullable();
+            $table->longText('comentario')->nullable();
             $table->timestamps();
         });
     }
