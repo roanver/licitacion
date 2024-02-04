@@ -40,20 +40,20 @@
 
 
 
-    <div class="card text-center">
+<div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-pills card-header-pills">
       <li class="nav-item">
         <a class="nav-link " href="{{route('licitaciones')}}">Publicadas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="#">Participando</a>
+        <a class="nav-link " href="{{route('participando')}}">Participando</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="">Finalizadas</a>
+        <a class="nav-link " href="{{route('finalizadas')}}">Finalizadas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="">Descartadas</a>
+        <a class="nav-link " href="{{('descartadas')}}">Descartadas</a>
       </li>
     </ul>
   </div>

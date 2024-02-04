@@ -49,9 +49,6 @@
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control">
                         </div>
-
-                        @dump($errors)
-
                         <button>Crear</button>
 
                     </form>

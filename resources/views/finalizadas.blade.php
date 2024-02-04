@@ -38,7 +38,27 @@
         }
     </style>
 
-<!-- <div class="container tabla-contenedor">
+
+
+    <div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <a class="nav-link " href="{{route('licitaciones')}}">Publicadas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{{route('participando')}}">Participando</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{{route('finalizadas')}}">Finalizadas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{{('descartadas')}}">Descartadas</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="container tabla-contenedor">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -54,8 +74,8 @@
                 <th>orden_compra</th>
                 <th>estado_aphix</th>
                 <th>comentario</th>
-                Añade más encabezados según tu estructura de datos -->
-            <!-- </tr>
+               
+            </tr>
         </thead>
         <tbody>
             @foreach($licitaciones as $licitacion)
@@ -74,33 +94,9 @@
                 <td>{{$licitacion->comentario}}</td>
             </tr>
             @endforeach
-            
-            Agrega más filas según tus datos -->
-        <!-- </tbody>
-    </table> -->
 
-
-    <div class="card text-center">
-  <div class="card-header">
-    <ul class="nav nav-pills card-header-pills">
-      <li class="nav-item">
-        <a class="nav-link active" href="{{route('licitaciones')}}">Publicadas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Participando</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="">Finalizadas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="">Descartadas</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+        </tbody>
+    </table>
   </div>
 </div>
 

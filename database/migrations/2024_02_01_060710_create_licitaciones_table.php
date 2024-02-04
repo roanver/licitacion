@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nombre_producto'); 
             $table->string('organismo_publico');
             $table->string('proveedor_adjudicado')->nullable();
-            $table->string('fecha_adjudicacion')->nullable();
+            $table->string('fecha_adjudicado')->nullable();
             $table->string('status')->nullable();
             $table->string('orden_compra')->nullable();
             $table->string('estado_aphix')->nullable();

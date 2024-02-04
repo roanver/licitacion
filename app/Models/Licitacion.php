@@ -10,7 +10,18 @@ class Licitacion extends Model
     use HasFactory;
 
     protected $table = 'licitaciones';
-    protected $fillable = ['numero cotizacion', 'nombre cotizacion', 'sku producto', 'nombre producto', 'organismo publico', 'proveedor adjudicado', 'fecha en que se adjudico', 'status', 'orden de compra', 'estado_aphix', 'comentario'];
-
+    protected $fillable = [
+        'numero_cotizacion', 
+        'nombre_cotizacion', 
+        'sku_producto', 
+        'nombre_producto', 
+        'organismo_publico', 
+        'proveedor_adjudicado', 
+        'fecha_adjudicado',
+        'status', 
+        'orden_compra',
+        'estado_aphix', 
+        'comentario'
+    ];
     protected $guarder = []; 
 }

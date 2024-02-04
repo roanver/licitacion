@@ -59,8 +59,8 @@
                     <input type="text" class="form-control" id="codigo" name="codigo" required>
                 </div>
                 <div class="btn-group" role="group" aria-label="Estado">
-                  <input type="radio" class="btn-check" id="descartar" name="status" value="descartar" autocomplete="off" required>
-                  <label class="btn btn-outline-primary" for="descartar">Descartar</label>
+                  <input type="radio" class="btn-check" id="descartada" name="status" value="descartada" autocomplete="off" required>
+                  <label class="btn btn-outline-primary" for="descartada">Descartar</label>
 
                   <input type="radio" class="btn-check" id="revisar" name="status" value="revisar" autocomplete="off" required>
                   <label class="btn btn-outline-primary" for="revisar">Revisar</label>
