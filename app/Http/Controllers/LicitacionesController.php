@@ -143,13 +143,8 @@ class LicitacionesController extends Controller
         $licitacion->estado_aphix = $estado;
         $licitacion->comentario = $comentario; 
         $licitacion->save();
-
         return redirect()->back();
-
     }
-
-
-
 }
 
 

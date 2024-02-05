@@ -29,6 +29,8 @@
     </div>
   </div>
 </nav>
+
+
 <style>
         /* Estilo adicional para el contenedor de la tabla */
         .tabla-contenedor {
@@ -57,6 +59,7 @@
       </li>
     </ul>
   </div>
+
   <div class="card-body">
     <div class="container tabla-contenedor">
     <table class="table table-striped table-bordered">
