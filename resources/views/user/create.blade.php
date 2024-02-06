@@ -33,6 +33,10 @@
 <br>
 <br>
 
+@if(session('status'))
+  <div>{{session('status')}}</div>
+@endif
+
 <div class="formCreate">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -49,6 +53,7 @@
                             <input type="email" name ="email" class="form-control" placeholder="Email"id="email" ></input>
                         </div>
                         <div>
+                          <p>{{$errors->first('email')}}</p>
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control">
                         </div>

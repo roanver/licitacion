@@ -58,47 +58,71 @@
     </ul>
   </div>
   <div class="card-body">
-    <div class="container tabla-contenedor">
-    <table class="table table-striped table-bordered">
+    <div class="container">
+    <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>numero_cotizacion</th>
-                <th>nombre_cotizacion</th>
-                <th>sku_producto</th>
-                <th>nombre_producto</th>
-                <th>organismo_publico</th>
-                <th>proveedor_adjudicado</th>
-                <th>fecha_adjudicacion</th>
-                <th>status</th>
-                <th>orden_compra</th>
-                <th>estado_aphix</th>
-                <th>comentario</th>
-               
+                <th>Estado Aphix </th>
+                <th>Comentario</th>
+                <th>N° Cotización</th>
+                <th>Nombre Cotización</th>
+                <th>SKU Producto</th>
+                <th>Nombre Prducto</th>
+                <th>Organismo Publico</th>
+                <th>Proveedor Ajudicado</th>
+                <th>Fecha Adjudicación</th>
+                <th>Status</th>
+                <th>Orden de Compra</th>
             </tr>
         </thead>
         <tbody>
             @foreach($licitaciones as $licitacion)
-            <tr>
-                <td>{{$licitacion->id}}</td>
-                <td>{{$licitacion->numero_cotizacion}}</td>
-                <td>{{$licitacion->nombre_cotizacion}}</td>
-                <td>{{$licitacion->sku_producto}}</td>
-                <td>{{$licitacion->nombre_producto}}</td>
-                <td>{{$licitacion->organismo_publico}}</td>
-                <td>{{$licitacion->proveedor_adjudicado}}</td>
-                <td>{{$licitacion->fecha_adjudicacion}}</td>
-                <td>{{$licitacion->status}}</td>
-                <td>{{$licitacion->orden_compra}}</td>
-                <td>{{$licitacion->estado_aphix}}</td>
-                <td>{{$licitacion->comentario}}</td>
-            </tr>
+              <tr>
+                <td>
+                  <form id="form_{{ $licitacion->numero_cotizacion }}" action="{{ route('actualizarEstado', $licitacion->numero_cotizacion) }}" method="POST">
+                      {{ csrf_field() }}
+                      <select class="form-select form-select-sm" aria-label="Small select example" id="estado_aphix_{{ $licitacion->numero_cotizacion }}" name="estado_aphix" style="width:100px">
+                          <option>{{ $licitacion->estado_aphix ? ucwords(strtolower($licitacion->estado_aphix)) : 'Sin Estado' }}</option>
+                          <option value="participando">Participando</option>
+                          <option value="participar">Participar</option>
+                          <option value="revisar">Revisar</option>
+                          <option value="descartar">Descartar</option>
+                      </select>
+                  </form>
+                    <script>
+                    $(document).ready(function () {
+                          $('#estado_aphix_{{ $licitacion->numero_cotizacion }}').change(function () {
+                              $('#form_{{ $licitacion->numero_cotizacion }}').submit();
+                          });
+                      });
+                    </script>
+                </td>
+              
+                <td > 
+                  <form action="{{route('comentario', $licitacion->numero_cotizacion)}} "method="POST">
+                    {{ csrf_field()}}
+                    <textarea id ="comentario" name="comentario">{{$licitacion->comentario ? $licitacion->comentario : 'Sin comentario'}}
+                    </textarea>
+                    <button type="submit" class="btn btn-secondary">Comentar</button>
+                  </form>
+                  </td>
+                  <td>{{$licitacion->numero_cotizacion}}</td>
+                  <td>{{$licitacion->nombre_cotizacion}}</td>
+                  <td>{{$licitacion->sku_producto}}</td>
+                  <td>{{$licitacion->nombre_producto}}</td>
+                  <td>{{$licitacion->organismo_publico}}</td>
+                  <td>{{$licitacion->proveedor_adjudicado}}</td>
+                  <td>{{$licitacion->fecha_adjudicacion}}</td>
+                  <td>{{$licitacion->status}}</td>
+                  <td>{{$licitacion->orden_compra}}</td>
+              </tr>
+              
             @endforeach
 
         </tbody>
-    </table>
+      </table>
+    </div>
   </div>
-</div>
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></scrip>

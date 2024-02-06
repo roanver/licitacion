@@ -34,52 +34,20 @@
 <br>
 
 <div class="container mt-5">
-    <div class="row">
-        <!-- Carga de Archivo -->
-        <div class="col-md-6">
-            <h4>Cargar Archivo</h4>
-            <form action="{{route('import')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                    <label for="archivo">Seleccionar Archivo:</label>
-                    <input type="file" class="form-control-file" id="archivo" name="file" accept=".csv" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Subir Archivo</button>
-            </form>
-        </div>
-
-        <!-- Agregar Status y Comentario -->
-        <div class="col-md-6">
-            <h4>Agregar Status y Comentario</h4>
-
-            <form action="{{route('update')}}" method="post">
-                @csrf
-                <div class="form-group">
-                    <label for="codigo">Código:</label>
-                    <input type="text" class="form-control" id="codigo" name="codigo" required>
-                </div>
-                <div class="btn-group" role="group" aria-label="Estado">
-                  <input type="radio" class="btn-check" id="descartada" name="status" value="descartada" autocomplete="off" required>
-                  <label class="btn btn-outline-primary" for="descartada">Descartar</label>
-
-                  <input type="radio" class="btn-check" id="revisar" name="status" value="revisar" autocomplete="off" required>
-                  <label class="btn btn-outline-primary" for="revisar">Revisar</label>
-
-                  <input type="radio" class="btn-check" id="participar" name="status" value="participar" autocomplete="off" required>
-                  <label class="btn btn-outline-primary" for="participar">Participar</label>
-
-                  <input type="radio" class="btn-check" id="participando" name="status" value="participando" autocomplete="off" required>
-                  <label class="btn btn-outline-primary" for="participando">Participando</label>
-                </div>
-              
-                <div class="form-group">
-                    <label for="comentario">Comentario:</label>
-                    <textarea class="form-control" id="comentario" name="comentario" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-success">Guardar Status y Comentario</button>
-            </form>
-        </div>
-    </div>
+  <div class="row">
+      <!-- Carga de Archivo -->
+      <div class="col-md-6 mx-auto">
+          <h4>Cargar Archivo</h4>
+          <form action="{{ route('import') }}" method="post" enctype="multipart/form-data">
+              @csrf
+              <div class="form-group">
+                  <label for="archivo">Seleccionar Archivo:</label>
+                  <input type="file" class="form-control-file" id="archivo" name="file" accept=".csv" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Subir Archivo</button>
+          </form>
+      </div>
+  </div>
 </div>
 
 

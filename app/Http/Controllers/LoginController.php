@@ -15,13 +15,20 @@ class LoginController extends Controller
         //falta validacion
         $user = new User();
 
+        $this->validate($request, [
+            'email' => 'required|email|unique:users',
+            'password' => 'required'
+        ]);
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
 
         $user->save();
 
-        return redirect()->route('users');
+        //return redirect()->route('users');
+
+        return redirect()->back()->with('status', 'Usuario creado exitosamente');
     }
 
     public function login(Request $request){
@@ -39,7 +46,7 @@ class LoginController extends Controller
             return redirect()->route('users');
             
         } else {
-            return redirect()->back()->withErrors(['login' => 'Las credenciales proporcionadas no son válidas.']);
+            return redirect()->back()->with(['login' => 'Las credenciales proporcionadas no son válidas.']);
         }
     }
 

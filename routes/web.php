@@ -23,11 +23,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('users');
 // })->middleware(['auth', 'verified'])->name('users');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 
 Route::get('/', function(){
@@ -55,7 +55,8 @@ Route::middleware('auth')->group(function(){
 
     })->name('importV');
 
-    Route::post('/actualizar', [LicitacionesController::class, 'update'])->name('update'); 
+    Route::post('/actualizar/{numeroCotizacion}', [LicitacionesController::class, 'actualizarEstado'])->name('actualizarEstado'); 
+    Route::post('/comentario/{numeroCotizacion}', [LicitacionesController::class, 'comentario'])->name('comentario'); 
 
     Route::get('participando', [LicitacionesController::class, 'participando'])->name('participando');
     Route::get('finalizadas', [LicitacionesController::class, 'finalizadas'])->name('finalizadas');
