@@ -14,28 +14,25 @@ class LicitacionesController extends Controller
             ->where(function ($query) {
                 $query->where('estado_aphix', '')
                 ->orWhereNull('estado_aphix')
-                ->orWhereNotIn('estado_aphix', ['descartado', 'participando']);
+                ->orWhereNotIn('estado_aphix', ['descartar', 'participando']);
                  })->get();
 
 
         return view('licitaciones', compact('licitaciones'));
     }
-
-
-   
-
     public function import(Request $request){
 
+        $request->validate([
+            'file' => 'required|file|mimes:csv',
+        ]);
+
         $file = $request->file('file');
+        
         $fileContents = file($file->getPathname());
 
         array_shift($fileContents);
-
-
             foreach($fileContents as $line){
-
                 $data = str_getcsv($line);
-
                 //dd($data);
         
                 Licitacion::updateOrCreate(
@@ -48,22 +45,17 @@ class LicitacionesController extends Controller
                         'fecha_adjudicado' => $data[6],
                         'status' => $data[7],
                         'orden_compra' =>$data[8]
-                        
                     ]
-
                 );
             }
-
-        return redirect()->back();
+            return redirect()->back()->with('status', 'Archivo cargado correctamente');
     }
-    
-
     public function participando(){
         $licitaciones = Licitacion::where('status', 'Publicada')
             ->where('estado_aphix', 'participando')->get();
         return view('participando', compact('licitaciones'));
     }
-    public function descartadas(){   //arreglar validacion
+    public function descartadas(){  
         $licitaciones = Licitacion::where('estado_aphix', 'descartar')->get();
         return view('licitaciones', compact('licitaciones'));
     }
@@ -73,9 +65,6 @@ class LicitacionesController extends Controller
             ->orWhere('status', 'proveedor')->get();
         return view('licitaciones', compact('licitaciones'));
     }
-
-
-
     public function comentario(Request $request, $numeroCotizacion){
 
         $comentario = $request->Input('comentario');
@@ -86,9 +75,7 @@ class LicitacionesController extends Controller
         $licitacion->save();
         return redirect()->back();
     }
-
-    public function actualizarEstado(Request $request, $numeroCotizacion)
-    {
+    public function actualizarEstado(Request $request, $numeroCotizacion){
            
         $estadoAphix = $request->input('estado_aphix');
 
@@ -103,6 +90,25 @@ class LicitacionesController extends Controller
         
         return redirect()->back()->with('success', 'Estado actualizado correctamente');
        
+    }
+
+    public function buscador(Request $request, Licitacion $licitacion){
+
+        $busqueda =  $request->Input('buscador');
+        //dd($busqueda);
+
+        if(empty($busqueda)){
+
+            return redirect()->route('licitaciones'); 
+        }else{
+            $licitaciones = $licitacion->where('numero_cotizacion',$busqueda)
+            ->orWhere('nombre_cotizacion','LIKE', '%'.$busqueda.'%')
+            ->orWhere('nombre_producto','LIKE', '%'.$busqueda.'%')->get();
+
+            //dd($licitaciones);
+            return view('buscador', compact('licitaciones', 'busqueda'));
+            
+        }
     }
     
 }

@@ -33,10 +33,18 @@
 <br>
 <br>
 
+
 <div class="container mt-5">
   <div class="row">
-      <!-- Carga de Archivo -->
+        @if(session('status'))
+          <div class="text-bg-success p-3">{{session('status')}}</div>
+        @endif
+        @if($errors->first('file'))
+          <div class="text-bg-danger p-3">{{$errors->first('file')}}</div>
+        @endif
+
       <div class="col-md-6 mx-auto">
+        
           <h4>Cargar Archivo</h4>
           <form action="{{ route('import') }}" method="post" enctype="multipart/form-data">
               @csrf

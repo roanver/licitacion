@@ -60,7 +60,7 @@
           </li>
           <form action=" {{route('buscador')}}" method="POST" class="d-flex ">
             {{ csrf_field()}}
-            <input type="text" class="bu" id="buscador" value=""name="buscador">
+            <input type="text" class="bu" id="buscador" value="{{$busqueda}}"name="buscador">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </ul>

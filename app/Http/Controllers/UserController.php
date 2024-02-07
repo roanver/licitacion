@@ -62,7 +62,6 @@ class UserController extends Controller
 
         if($usuario){
             $usuario->delete();
-            $msg="Usuario eliminado correctamente";
         }
         
         return redirect()->back();
