@@ -47,22 +47,25 @@
       <div class="card-header">
         <ul class="nav nav-pills card-header-pills">
           <li class="nav-item">
-            <a class="nav-link " href="{{route('licitaciones')}}">Publicadas</a>
+            <a class="nav-link {{ Request::is('licitaciones') ? 'active' : ''}}" href="{{route('licitaciones')}}">Publicadas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{route('participando')}}">Participando</a>
+            <a class="nav-link {{ Request::is('participando') ? 'active' : ''}}" href="{{route('participando')}}">Participando</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{route('finalizadas')}}">Finalizadas</a>
+            <a class="nav-link {{ Request::is('finalizadas') ? 'active' : ''}}" href="{{route('finalizadas')}}">Finalizadas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{('descartadas')}}">Descartadas</a>
+            <a class="nav-link {{ Request::is('descartadas') ? 'active' : ''}}" href="{{('descartadas')}}">Descartadas</a>
           </li>
-          <form action=" {{route('buscador')}}" method="POST" class="d-flex ">
+          <li>
+          <form action=" {{route('buscador')}}" method="get" class="d-flex ">
             {{ csrf_field()}}
             <input type="text" class="bu" id="buscador" value=""name="buscador">
+            <input type="hidden" name="estado_aphix" value="publicadas">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+          </li>
         </ul>
     </div>
 
@@ -81,7 +84,7 @@
                     <th>Proveedor Ajudicado</th>
                     <th>Fecha Adjudicación</th>
                     <th>Status</th>
-                    <th>Orden de Compra</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -123,7 +126,7 @@
                       <td>{{$licitacion->proveedor_adjudicado}}</td>
                       <td>{{$licitacion->fecha_adjudicacion}}</td>
                       <td>{{$licitacion->status}}</td>
-                      <td>{{$licitacion->orden_compra}}</td>
+                      
                   </tr>
                   
                 @endforeach

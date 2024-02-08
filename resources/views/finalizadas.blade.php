@@ -40,23 +40,28 @@
 
 
 
-    <div class="card text-center">
-  <div class="card-header">
-    <ul class="nav nav-pills card-header-pills">
-      <li class="nav-item">
-        <a class="nav-link " href="{{route('licitaciones')}}">Publicadas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{{route('participando')}}">Participando</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{{route('finalizadas')}}">Finalizadas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="{{('descartadas')}}">Descartadas</a>
-      </li>
-    </ul>
-  </div>
+      <div class="card text-center">
+        <div class="card-header">
+          <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('licitaciones') ? 'active' : ''}}" href="{{route('licitaciones')}}">Publicadas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('participando') ? 'active' : ''}}" href="{{route('participando')}}">Participando</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('finalizadas') ? 'active' : ''}}" href="{{route('finalizadas')}}">Finalizadas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::is('descartadas') ? 'active' : ''}}" href="{{('descartadas')}}">Descartadas</a>
+            </li>
+            <form action=" {{route('buscador')}}" method="POST" class="d-flex ">
+              {{ csrf_field()}}
+              <input type="text" class="bu" id="buscador" value=""name="buscador">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </ul>
+      </div>
   <div class="card-body">
     <div class="container">
     <table class="table">
