@@ -56,17 +56,17 @@
             <a class="nav-link {{ Request::is('finalizadas') ? 'active' : ''}}" href="{{route('finalizadas')}}">Finalizadas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('descartadas') ? 'active' : ''}}" href="{{('descartadas')}}">Descartadas</a>
-          </li>
-          <li>
-          <form action=" {{route('buscador')}}" method="get" class="d-flex ">
-            {{ csrf_field()}}
-            <input type="text" class="bu" id="buscador" value=""name="buscador">
-            <input type="hidden" name="estado_aphix" value="publicadas">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+            <a class="nav-link {{ Request::is('descartadas') ? 'active' : ''}}" href="{{route('descartadas')}}">Descartadas</a>
           </li>
         </ul>
+    </div >
+    <div class="d-flex justify-content-end mt-3">
+    <form action=" {{route('buscador')}}" method="get" class="d-flex ">
+      {{ csrf_field()}}
+      <input type="text" class="bu" id="buscador" value=""name="buscador" style="border-radius: 5px">
+      <input type="hidden" name="estado_aphix" value="publicadas">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
     </div>
 
       <div class="card-body">

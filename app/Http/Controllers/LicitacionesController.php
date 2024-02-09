@@ -58,13 +58,15 @@ class LicitacionesController extends Controller
         return view('participando', compact('licitaciones'));
     }
     public function descartadas(){  
-        $licitaciones = Licitacion::where('estado_aphix', 'descartar')->get();
-        return view('licitaciones', compact('licitaciones'));
+        $licitaciones = Licitacion::where('estado_aphix', 'descartar')
+        ->orderBy('updated_at', 'desc')
+        ->get();
+        return view('descartadas', compact('licitaciones'));
     }
     public function finalizadas(){
         $licitaciones = Licitacion::where('estado_aphix','participando')
             ->whereIn('status', ['desestimada', 'proveedor'])->get();
-        return view('licitaciones', compact('licitaciones'));
+        return view('finalizadas', compact('licitaciones'));
     }
     public function comentario(Request $request, $numeroCotizacion){
 
@@ -100,25 +102,45 @@ class LicitacionesController extends Controller
 
             return redirect()->route('licitaciones'); 
 
-        }else{
-                $licitaciones = $licitacion->where('status', 'Publicada')
-                ->where(function($query) use ($busqueda){
-                    $query->where('numero_cotizacion',$busqueda)
-                            ->orWhere('nombre_cotizacion','LIKE', '%'.$busqueda.'%')
-                            ->orWhere('nombre_producto','LIKE', '%'.$busqueda.'%');
-
-                })
-                ->get();
-
-                return view('licitaciones', compact('licitaciones', 'busqueda'));
-
-            }  
-           
-            
         }
+
+        $licitaciones = $licitacion->newQuery();
+
+        switch ($estado) {
+
+            case "publicadas":
+
+                $licitaciones = $licitacion->where('status', 'Publicada')
+                ->where(function ($query) {
+                    $query->whereIn('estado_aphix', ['participar', 'revisar'])
+                        ->orWhereNull('estado_aphix');
+                });          
+            break;
+            case "participando":
+                $licitaciones = $licitacion->where('estado_aphix', 'participando')
+                                            ->whereIn('status', ['Publicada','Evaluacion']);
+            break;
+            case "finalizada":  
+                $licitaciones = $licitacion->where('estado_aphix','participando')
+                                            ->whereIn('status', ['desestimada', 'proveedor']);
+                break;
+            case "descartadas":
+                $licitaciones = $licitacion->where('estado_aphix', 'descartar');
+                break;
+            }
+            $licitaciones = $licitaciones->where(function($query) use ($busqueda){
+                $query->where('numero_cotizacion',$busqueda)
+                        ->orWhere('nombre_cotizacion','LIKE', '%'.$busqueda.'%')
+                        ->orWhere('nombre_producto','LIKE', '%'.$busqueda.'%')
+                        ->orWhere('organismo_publico','LIKE', '%'.$busqueda.'%');
+            })->get();
+           
+            return view('busqueda', compact('licitaciones', 'busqueda','estado'));
+        
     
-}  
+    }  
 
 
 
 
+}

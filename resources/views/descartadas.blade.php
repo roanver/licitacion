@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Formulario de Inicio de Sesión</title>
 </head>
@@ -29,6 +30,8 @@
     </div>
   </div>
 </nav>
+
+
 <style>
         /* Estilo adicional para el contenedor de la tabla */
         .tabla-contenedor {
@@ -53,83 +56,90 @@
             <a class="nav-link {{ Request::is('finalizadas') ? 'active' : ''}}" href="{{route('finalizadas')}}">Finalizadas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('descartadas') ? 'active' : ''}}" href="{{('descartadas')}}">Descartadas</a>
+            <a class="nav-link {{ Request::is('descartadas') ? 'active' : ''}}" href="{{route('descartadas')}}">Descartadas</a>
           </li>
-          <form action=" {{route('buscador')}}" method="POST" class="d-flex ">
-            {{ csrf_field()}}
-            <input type="text" class="bu" id="buscador" value=""name="buscador">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
         </ul>
+    </div >
+    <div class="d-flex justify-content-end mt-3">
+    <form action=" {{route('buscador')}}" method="get" class="d-flex ">
+      {{ csrf_field()}}
+      <input type="text" class="bu" id="buscador" value=""name="buscador" style="border-radius: 5px">
+      <input type="hidden" name="estado_aphix" value="descartadas">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
     </div>
-  <div class="card-body">
-    <div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Estado Aphix </th>
-                <th>Comentario</th>
-                <th>N° Cotización</th>
-                <th>Nombre Cotización</th>
-                <th>SKU Producto</th>
-                <th>Nombre Prducto</th>
-                <th>Organismo Publico</th>
-                <th>Proveedor Ajudicado</th>
-                <th>Fecha Adjudicación</th>
-                <th>Status</th>
-                <th>Orden de Compra</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($licitaciones as $licitacion)
-              <tr>
-                <td>
-                  <form id="form_{{ $licitacion->numero_cotizacion }}" action="{{ route('actualizarEstado', $licitacion->numero_cotizacion) }}" method="POST">
-                      {{ csrf_field() }}
-                      <select class="form-select form-select-sm" aria-label="Small select example" id="estado_aphix_{{ $licitacion->numero_cotizacion }}" name="estado_aphix" style="width:100px">
-                          <option>{{ $licitacion->estado_aphix ? ucwords(strtolower($licitacion->estado_aphix)) : 'Sin Estado' }}</option>
-                          <option value="participando">Participando</option>
-                          <option value="participar">Participar</option>
-                          <option value="revisar">Revisar</option>
-                          <option value="descartar"></option>
-                      </select>
-                  </form>
-                    <script>
-                    $(document).ready(function () {
-                          $('#estado_aphix_{{ $licitacion->numero_cotizacion }}').change(function () {
-                              $('#form_{{ $licitacion->numero_cotizacion }}').submit();
+
+      <div class="card-body">
+        <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Estado Aphix </th>
+                    <th>Comentario</th>
+                    <th>N° Cotización</th>
+                    <th>Nombre Cotización</th>
+                    <th>SKU Producto</th>
+                    <th>Nombre Prducto</th>
+                    <th>Organismo Publico</th>
+                    <th>Proveedor Ajudicado</th>
+                    <th>Fecha Adjudicación</th>
+                    <th>Status</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($licitaciones as $licitacion)
+                  <tr>
+                    <td>
+                      <form id="form_{{ $licitacion->numero_cotizacion }}" action="{{ route('actualizarEstado', $licitacion->numero_cotizacion) }}" method="POST">
+                          {{ csrf_field() }}
+                          <select class="form-select form-select-sm" aria-label="Small select example" id="estado_aphix_{{ $licitacion->numero_cotizacion }}" name="estado_aphix" style="width:100px">
+                              <option>{{ $licitacion->estado_aphix ? ucwords(strtolower($licitacion->estado_aphix)) : 'Sin Estado' }}</option>
+                              <option value="participando">Participando</option>
+                              <option value="participar">Participar</option>
+                              <option value="revisar">Revisar</option>
+                              <option value="descartar">Descartar</option>
+                          </select>
+                      </form>
+                        <script>
+                        $(document).ready(function () {
+                              $('#estado_aphix_{{ $licitacion->numero_cotizacion }}').change(function () {
+                                  $('#form_{{ $licitacion->numero_cotizacion }}').submit();
+                              });
                           });
-                      });
-                    </script>
-                </td>
-              
-                <td > 
-                  <form action="{{route('comentario', $licitacion->numero_cotizacion)}} "method="POST">
-                    {{ csrf_field()}}
-                    <textarea id ="comentario" name="comentario">{{$licitacion->comentario ? $licitacion->comentario : 'Sin comentario'}}
-                    </textarea>
-                    <button type="submit" class="btn btn-secondary">Comentar</button>
-                  </form>
-                  </td>
-                  <td>{{$licitacion->numero_cotizacion}}</td>
-                  <td>{{$licitacion->nombre_cotizacion}}</td>
-                  <td>{{$licitacion->sku_producto}}</td>
-                  <td>{{$licitacion->nombre_producto}}</td>
-                  <td>{{$licitacion->organismo_publico}}</td>
-                  <td>{{$licitacion->proveedor_adjudicado}}</td>
-                  <td>{{$licitacion->fecha_adjudicacion}}</td>
-                  <td>{{$licitacion->status}}</td>
-                  <td>{{$licitacion->orden_compra}}</td>
-              </tr>
-              
-            @endforeach
+                        </script>
+                    </td>
+                  
+                    <td > 
+                      <form action="{{route('comentario', $licitacion->numero_cotizacion)}} "method="POST">
+                        {{ csrf_field()}}
+                        <textarea id ="comentario" name="comentario">{{$licitacion->comentario ? $licitacion->comentario : 'Sin comentario'}}
+                        </textarea>
+                        <button type="submit" class="btn btn-secondary">Comentar</button>
+                      </form>
+                      </td>
+                      <td>{{$licitacion->numero_cotizacion}}</td>
+                      <td>{{$licitacion->nombre_cotizacion}}</td>
+                      <td>{{$licitacion->sku_producto}}</td>
+                      <td>{{$licitacion->nombre_producto}}</td>
+                      <td>{{$licitacion->organismo_publico}}</td>
+                      <td>{{$licitacion->proveedor_adjudicado}}</td>
+                      <td>{{$licitacion->fecha_adjudicacion}}</td>
+                      <td>{{$licitacion->status}}</td>
+                      
+                  </tr>
+                  
+                @endforeach
 
-        </tbody>
-      </table>
-    </div>
-  </div>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></scrip>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></scrip>
+  
+
 </body>
 </html>

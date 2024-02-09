@@ -47,24 +47,24 @@
       <div class="card-header">
         <ul class="nav nav-pills card-header-pills">
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('licitaciones') ? 'active' : ''}}" href="{{route('licitaciones')}}">Publicadas</a>
+            <a class="nav-link {{ $estado == 'publicadas' ? 'active' : ''}}" href="{{route('licitaciones')}}">Publicadas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('participando') ? 'active' : ''}}" href="{{route('participando')}}">Participando</a>
+            <a class="nav-link {{ $estado == 'participando' ? 'active' : ''}}" href="{{route('participando')}}">Participando</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('finalizadas') ? 'active' : ''}}" href="{{route('finalizadas')}}">Finalizadas</a>
+            <a class="nav-link {{ $estado == 'finalizadas' ? 'active' : ''}}" href="{{route('finalizadas')}}">Finalizadas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('descartadas') ? 'active' : ''}}" href="{{route('descartadas')}}">Descartadas</a>
+            <a class="nav-link {{ $estado == 'descartadas' ? 'active' : ''}}" href="{{route('descartadas')}}">Descartadas</a>
           </li>
         </ul>
     </div >
     <div class="d-flex justify-content-end mt-3">
     <form action=" {{route('buscador')}}" method="get" class="d-flex ">
       {{ csrf_field()}}
-      <input type="text" class="bu" id="buscador" value=""name="buscador" style="border-radius: 5px">
-      <input type="hidden" name="estado_aphix" value="participando">
+      <input type="text" class="bu" id="buscador" value="{{$busqueda ? $busqueda : ''}}"name="buscador" style="border-radius: 5px">
+      <input type="hidden" name="estado_aphix" value="{{$estado}}">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
     </div>
