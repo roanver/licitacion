@@ -2,76 +2,77 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    @vite('resources/css/app.css')
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Formulario de Inicio de Sesión</title>
+    <title> Usuarios</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{route('users')}}">Users</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-      <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('licitaciones')}}">Licitaciones</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('importV')}}">Cargar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('logout')}}">logout</a>
-        </li>
-        
-      </ul>
-    </div>
+
+<nav class="p-5 bg-white shadow flex intems-center justify-between">
+  <div>
+  <span class="text-2xl">
+      <a href="{{route('users')}}">Aphix</a>
+  </span>
   </div>
+  <ul class="flex items-center">
+    <li class="mx-4">
+      <a class="text-xl hover:text-blue-500" href="{{route('users')}}">Usuarios</a>
+    </li>
+    <li class="mx-4">
+      <a class="text-xl hover:text-blue-500" href="{{route('licitaciones')}}">Licitaciones</a>
+    </li>
+    <li class="mx-4">
+      <a class="text-xl hover:text-blue-500"  href="{{route('importV')}}">Cargar</a>
+    </li>
+    <li class="mx-4">
+      <a class="text-xl hover:text-blue-500"  href="{{route('logout')}}">logout</a>
+    </li>
+  </ul>
 </nav>
 
+
+
 <br>
 <br>
 
-<div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+  <div class=" mx-20 ">
+    <table class="min-w-full bg-white">
+      <div>
+        <form action="{{route('user.viewCreate')}}" method="get">
+          {{ csrf_field() }}
+        <button class=" w-32 h-10 bg-blue-500 text-center my-4 rounded hover:bg-blue-400 cursor-pointer text-center text-white text-base font-bold ">Crear</button>
+      </form>
+      </div>
+      <thead class="bg-blue-500 text-white">
+        <tr>
+          <th class="px-6 py-3 text-left">ID</th>
+          <th class="px-6 py-3 text-left">Nombre</th>
+          <th class="px-6 py-3 text-left">Correo</th>
+          <th class="px-6 py-3 text-left mx-20">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="bg-blue-200 border-b-4">
+        @foreach($usuarios as $usuario)
+        <!-- Aquí irán los datos de la tabla -->
+        <tr class="border-b-2">
+          <td class="px-6 py-4 ">{{$usuario->id}}</td>
+          <td class="px-6 py-4 ">{{$usuario->name}}</td>
+          <td class="px-6 py-4 ">{{$usuario->email}}</td>
+          <td class="px-6 py-4 ">
+            <a href="{{route('user.editView', $usuario->id)}}"class="text-indigo-600 hover:text-indigo-900">Editar</a>
+            <a href="{{route('user.delete', $usuario->id)}}" class="text-red-600 hover:text-red-900 ml-2">Eliminar</a>
+          </td>
+        </tr>
+        @endforeach
+        <!-- Más filas según sea necesario -->
+      </tbody>
+    </table>
+  </div>
 
 
-                <a  class="btn btn-dark" href="{{route('user.viewCreate')}}">Crear</a>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($usuarios as $usuario)
-                            <tr>
-                                <td>{{$usuario->id}}</td>
-                                <td>{{$usuario->name}}</td>
-                                <td>{{$usuario->email}}</td>
-                                <td>
-                                    <a class="btn btn-dark" href="{{route('user.editView', $usuario->id)}}">Editar</a>
-                                    <a class="btn btn-dark" href="{{route('user.delete', $usuario->id)}}">Eliminar</a>
-                                </td>
-                            </tr>
-                        @endforeach
-    
-                    </tbody>
-                </table>
-                    
-                
-                </div>
-            </div>
-        </div>
-    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></scrip>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></scrip>
+
 </body>
 </html>

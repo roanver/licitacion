@@ -53,7 +53,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect()->route('users');
+        return redirect()->back()->with('status', 'Usuario editado exitosamente');
     }
 
     public function delete($id){

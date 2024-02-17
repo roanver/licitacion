@@ -3,60 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Formulario de Inicio de Sesión</title>
+    @vite('resources/css/app.css')
+    <title>Cargar Archivo</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{route('users')}}">Users</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-      <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('licitaciones')}}">Licitaciones</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('importV')}}">Cargar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('logout')}}">logout</a>
-        </li>
-        
-      </ul>
+  <nav class="p-5 bg-white shadow flex intems-center justify-between">
+    <div>
+    <span class="text-2xl">
+        <a href="{{route('users')}}">Aphix</a>
+    </span>
     </div>
-  </div>
-</nav>
+    <ul class="flex items-center">
+      <li class="mx-4">
+        <a class="text-xl hover:text-blue-500" href="{{route('users')}}">Usuarios</a>
+      </li>
+      <li class="mx-4">
+        <a class="text-xl hover:text-blue-500" href="{{route('licitaciones')}}">Licitaciones</a>
+      </li>
+      <li class="mx-4">
+        <a class="text-xl hover:text-blue-500"  href="{{route('importV')}}">Cargar</a>
+      </li>
+      <li class="mx-4">
+        <a class="text-xl hover:text-blue-500"  href="{{route('logout')}}">logout</a>
+      </li>
+    </ul>
+  </nav>
 
 <br>
 <br>
 
+        <div class="max-w-sm mx-auto rounded-md border-none bg-grey-200 ">
 
-<div class="container mt-5">
-  <div class="row">
-        @if(session('status'))
-          <div class="text-bg-success p-3">{{session('status')}}</div>
-        @endif
-        @if($errors->first('file'))
-          <div class="text-bg-danger p-3">{{$errors->first('file')}}</div>
-        @endif
-
-      <div class="col-md-6 mx-auto">
-        
-          <h4>Cargar Archivo</h4>
+          @if(session('status'))
+          <div class=" my-4 flex justify-center font-light text-center w-60 h-7 bg-green-400 rounded">{{session('status')}}</div>
+          @endif
+          @if($errors->first('file'))
+            <div class="my-4 flex justify-center font-ligth text-center w-72 h-7 bg-rose-500 rounded">{{$errors->first('file')}}</div>
+            @endif
           <form action="{{ route('import') }}" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-group">
-                  <label for="archivo">Seleccionar Archivo:</label>
-                  <input type="file" class="form-control-file" id="archivo" name="file" accept=".csv" required>
+                  <label for="archivo" class=" ">Cargar Archivo:</label>
+                  <input type="file" class="text-sm text-gray-500 rounded-lg my-6 cursor-pointer file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-blue-500 file:font-bold file:text-white file:cursor-pointer" id="archivo" name="file" accept=".csv" required>
               </div>
-              <button type="submit" class="btn btn-primary">Subir Archivo</button>
+              <button type="submit" class="w-full h-10 bg-blue-500 text-center my-4 rounded hover:bg-blue-400 cursor-pointer text-center text-white text-base font-bold ">Subir Archivo</button>
           </form>
       </div>
-  </div>
-</div>
+
 
 
 

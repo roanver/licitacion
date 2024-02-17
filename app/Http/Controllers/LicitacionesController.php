@@ -43,7 +43,7 @@ class LicitacionesController extends Controller
                         'nombre_producto' => trim($data[3]),
                         'organismo_publico' => trim($data[4]),
                         'proveedor_adjudicado' => trim($data[5]),
-                        'fecha_adjudicado' => trim($data[6]),
+                        'fecha_adjudicado' => $data[6],
                         'status' => trim($data[7]),
                         'orden_compra' => trim($data[8])
                     ]

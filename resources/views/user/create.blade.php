@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Formulario de Inicio de Sesión</title>
+    @vite('resources/css/app.css')
+    <title>Crear Usuario</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{route('users')}}">Users</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-      <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('licitaciones')}}">Licitaciones</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('importV')}}">Cargar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('logout')}}">logout</a>
-        </li>
-        
-      </ul>
+  <nav class="p-5 bg-white shadow flex intems-center justify-between">
+    <div>
+    <span class="text-2xl">
+        <a href="{{route('users')}}">Aphix</a>
+    </span>
     </div>
-  </div>
-</nav>
+    <ul class="flex items-center">
+      <li class="mx-4">
+        <a class="text-xl hover:text-blue-500" href="{{route('users')}}">Usuarios</a>
+      </li>
+      <li class="mx-4">
+        <a class="text-xl hover:text-blue-500" href="{{route('licitaciones')}}">Licitaciones</a>
+      </li>
+      <li class="mx-4">
+        <a class="text-xl hover:text-blue-500"  href="{{route('importV')}}">Cargar</a>
+      </li>
+      <li class="mx-4">
+        <a class="text-xl hover:text-blue-500"  href="{{route('logout')}}">logout</a>
+      </li>
+    </ul>
+  </nav>
 
 <br>
 <br>
@@ -37,56 +36,26 @@
   <div>{{session('status')}}</div>
 @endif
 
-
-    {{-- <div class="container">
-      <form action="" class="row g-3 mt-3">
-
-        <div class="col-12">
-          <label for="nam" class="form-label">Nombre</label>
-          <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+  <div class="max-w-sm mx-auto rounded-md border-none ">
+    <form action="{{route('user.create')}} "method="POST">
+      {{ csrf_field() }}
+        <div class="mb-3">
+          <label for="name" class="text-md font-medium text-grey-700">Nombre</label>
+          <input type="text" name="name" class=" w-full text-base px-2 py-2 my-2 border rounded " placeholder="Nombre">
         </div>
-        <div class="col-12">
-          <label for="email" class="form-label">Correo</label>
-          <input type="email" name ="email" class="form-control" placeholder="Email" id="email">
-          <p></p>
+        <div class="mb-3">
+          <label for="email" class="text-md font-medium text-grey-700">Email</label>
+          <input type="email" name ="email" class=" w-full text-base px-2 py-2 my-2 border rounded " placeholder="Email"id="email" >
         </div>
-        <br>
-        <div class="col-12">
-          <label for="password" class="form-label">Contraseña</label>
-          <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control">
+        <div>
+          <p>{{$errors->first('email')}}</p>
+          <label for="password" class="text-md font-medium text-grey-700">Contraseña</label>
+          <input type="password" name="password" id="password" placeholder="Contraseña" class="border w-full text-base px-2 py-2 my-2 rounded">
         </div>
-        <div class="col-6">
-          <button class="btn btn-primary">Crear</button>
-        </div>
-      </form>
-    </div> --}}
-
-<div class="formCreate">
-  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-6 text-gray-900 dark:text-gray-100">
-
-              <form action="{{route('user.create')}} "method="POST">
-              {{ csrf_field() }}
-                  <div class="mb-3">
-                       <label for="nam" class="form-label">Nombre</label>
-                      <input type="text" name="name" class="form-control" id="name" placeholder="Nombre">
-                  </div>
-                  <div class="mb-3">
-                      <label for="email" class="form-label">Correo</label>
-                      <input type="email" name ="email" class="form-control" placeholder="Email"id="email" >
-                  </div>
-                  <div>
-                    <p>{{$errors->first('email')}}</p>
-                      <label for="password" class="form-label">Contraseña</label>
-                      <input type="password" name="password" id="password" placeholder="Contraseña" class="form-control">
-                  </div>
-                  <button class="btn btn-primary">Crear</button>
-              </form>
-          </div>
-      </div>
+        <button class="w-full h-10 bg-blue-500 text-center my-4 rounded hover:bg-blue-400 cursor-pointer text-center text-white text-base font-bold  ">Crear</button>
+    </form>
   </div>
-</div>
+
 
 
 
