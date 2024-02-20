@@ -76,7 +76,7 @@ class LicitacionesController extends Controller
         $licitacion = Licitacion::where('numero_cotizacion',$numeroCotizacion)->first();
         $licitacion->comentario = $comentario; 
         $licitacion->save();
-        return redirect()->back();
+        return redirect()->back()->with('estadoComentario', 'guardado');
     }
     public function actualizarEstado(Request $request, $numeroCotizacion){
            
@@ -87,7 +87,7 @@ class LicitacionesController extends Controller
         $licitacion = Licitacion::where('numero_cotizacion', $numeroCotizacion)->first();
             $licitacion->estado_aphix = $estadoAphix;
             $licitacion->save();
-        return redirect()->back()->with('success', 'Estado actualizado correctamente');
+        return redirect()->back()->with('estado', 'Estado actualizado correctamente');
        
     }
 

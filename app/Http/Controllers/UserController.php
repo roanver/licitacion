@@ -38,6 +38,9 @@ class UserController extends Controller
         $password = $request->Input('password');
 
      //dd($id);
+        $this->validate($request, [
+            'email' => 'email|unique:users',
+        ]);
 
         if (!$password) {
 
@@ -49,7 +52,7 @@ class UserController extends Controller
         
             $user->name= $name; 
             $user->email=$email;
-            $user->password= $password;//bcrypt($password);
+            $user->password= $password;
             $user->save();
         }
 
@@ -64,7 +67,7 @@ class UserController extends Controller
             $usuario->delete();
         }
         
-        return redirect()->back();
+        return redirect()->back()->with('status', 'Usuario eliminado correctamente');
     }
     
 }
