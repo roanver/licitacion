@@ -64,6 +64,8 @@ Route::middleware('auth')->group(function(){
 
     Route::get('licitaciones/buscador', [LicitacionesController::class, 'buscador'])->name('buscador');
 
+    Route::get('descargar', [LicitacionesController::class, 'exportExcel'])->name('export'); 
+
 
 }); 
 

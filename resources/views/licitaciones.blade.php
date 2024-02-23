@@ -48,7 +48,11 @@
             <li class="mx-4">
               <a class=" {{ Request::is('descartadas') ? 'text-blue-500 font-bold' : ''}} hover:text-blue-500" href="{{route('descartadas')}}">Descartadas</a>
             </li>
+            <li class="mx-4">
+              <a class="w-24 h-8 bg-blue-500 text-center my-4 rounded hover:bg-blue-400 cursor-pointer text-center text-white text-base font-bold " href="{{route('export')}}">descargar</a>
+            </li>
           </ul>
+
       </div >
 
       <div class="mx-4">

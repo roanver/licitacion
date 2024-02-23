@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LicitacionesExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Licitacion;
+use Maatwebsite\Excel\Facades\Excel; 
+use App\Exports\LicitacionesSheetExport;
+use App\Exports\PublicadasSheet;
+use Illuminate\Support\Facades\Log;
+
+
 
 class LicitacionesController extends Controller
 {
@@ -140,6 +147,13 @@ class LicitacionesController extends Controller
     
     }  
 
+
+
+    public function exportExcel()
+    {
+
+       return Excel::download(new LicitacionesExport, 'licitaciones.xlsx');
+    }
 
 
 
