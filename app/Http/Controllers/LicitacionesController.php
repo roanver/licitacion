@@ -103,6 +103,8 @@ class LicitacionesController extends Controller
         $busqueda =  $request->Input('buscador');
         $estado = $request->Input('estado_aphix');
 
+
+
         //dd($estado, $busqueda);
 
         if(is_null($busqueda)){
@@ -118,32 +120,57 @@ class LicitacionesController extends Controller
             case "publicadas":
 
                 $licitaciones = $licitacion->where('status', 'Publicada')
-                ->where(function ($query) {
+                ->where(function($query) use ($busqueda) {
                     $query->whereIn('estado_aphix', ['participar', 'revisar'])
-                        ->orWhereNull('estado_aphix');
-                });          
-            break;
+                        ->orWhereNull('estado_aphix')
+                        ->where(function($query) use ($busqueda) {
+                            $query->where('numero_cotizacion', $busqueda)
+                                ->orWhere('nombre_cotizacion', 'LIKE', '%'.$busqueda.'%')
+                                ->orWhere('nombre_producto', 'LIKE', '%'.$busqueda.'%')
+                                ->orWhere('organismo_publico', 'LIKE', '%'.$busqueda.'%');
+                        });
+                })->get();
+                $menu="publicadas"; 
+                return view('licitaciones', compact('licitaciones', 'busqueda', 'menu'));             
+             
             case "participando":
                 $licitaciones = $licitacion->where('estado_aphix', 'participando')
-                                            ->whereIn('status', ['Publicada','Evaluacion']);
-            break;
+                    ->whereIn('status', ['Publicada', 'Evaluacion'])
+                    ->where(function($query) use ($busqueda) {
+                    $query->where('numero_cotizacion', $busqueda)
+                        ->orWhere('nombre_cotizacion', 'LIKE', '%'.$busqueda.'%')
+                        ->orWhere('nombre_producto', 'LIKE', '%'.$busqueda.'%')
+                        ->orWhere('organismo_publico', 'LIKE', '%'.$busqueda.'%');
+                })->get();
+                $menu="participando";
+
+                return view('participando', compact('licitaciones', 'busqueda', 'menu'));  
+
             case "finalizada":  
                 $licitaciones = $licitacion->where('estado_aphix','participando')
-                                            ->whereIn('status', ['desestimada', 'proveedor']);
-                break;
+                    ->whereIn('status', ['desestimada', 'proveedor'])
+                    ->where(function($query) use ($busqueda){
+                     $query->where('numero_cotizacion',$busqueda)
+                            ->orWhere('nombre_cotizacion','LIKE', '%'.$busqueda.'%')
+                            ->orWhere('nombre_producto','LIKE', '%'.$busqueda.'%')
+                            ->orWhere('organismo_publico','LIKE', '%'.$busqueda.'%');
+                })->get();
+                $menu="finalizadas"; 
+                return view('finalizadas', compact('licitaciones', 'busqueda','menu'));  
+               
             case "descartadas":
-                $licitaciones = $licitacion->where('estado_aphix', 'descartar');
-                break;
+                $licitaciones = $licitacion->where('estado_aphix', 'descartar')
+                ->where(function($query) use ($busqueda){
+                    $query->where('numero_cotizacion',$busqueda)
+                            ->orWhere('nombre_cotizacion','LIKE', '%'.$busqueda.'%')
+                            ->orWhere('nombre_producto','LIKE', '%'.$busqueda.'%')
+                            ->orWhere('organismo_publico','LIKE', '%'.$busqueda.'%');
+                })->get();
+                $menu="descartadas"; 
+                return view('descartadas', compact('licitaciones', 'busqueda','menu'));
+                
             }
-            $licitaciones = $licitaciones->where(function($query) use ($busqueda){
-                $query->where('numero_cotizacion',$busqueda)
-                        ->orWhere('nombre_cotizacion','LIKE', '%'.$busqueda.'%')
-                        ->orWhere('nombre_producto','LIKE', '%'.$busqueda.'%')
-                        ->orWhere('organismo_publico','LIKE', '%'.$busqueda.'%');
-            })->get();
            
-            return view('busqueda', compact('licitaciones', 'busqueda','estado'));
-        
     
     }  
 

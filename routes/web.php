@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function(){
     Route::get('finalizadas', [LicitacionesController::class, 'finalizadas'])->name('finalizadas');
     Route::get('descartadas', [LicitacionesController::class, 'descartadas'])->name('descartadas');
 
-    Route::get('licitaciones/buscador', [LicitacionesController::class, 'buscador'])->name('buscador');
+    Route::post('buscador', [LicitacionesController::class, 'buscador'])->name('buscador');
 
     Route::get('descargar', [LicitacionesController::class, 'exportExcel'])->name('export'); 
 
